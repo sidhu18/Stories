@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_table")
 data class UserData(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "user_id")
     var userId : Long = 0L,
     @ColumnInfo(name = "user_name")
@@ -20,9 +20,9 @@ data class UserData(
     @ColumnInfo(name = "following_count")
     var following_count : Int = -1,
     @ColumnInfo(name = "profile_image")
-    var profileImageUri :String = "",
-    @ColumnInfo(name = "join_date")
-    var joinDate : Long = System.currentTimeMillis()
+    var profileImageUri :String = ""
+//    @ColumnInfo(name = "join_date")
+//    var joinDate : Long = System.currentTimeMillis()
 )
 
 fun List<UserData>.asDomainModel() : List<UserData>{
@@ -34,8 +34,8 @@ fun List<UserData>.asDomainModel() : List<UserData>{
             postCount = it.postCount,
             followersCount = it.followersCount,
             following_count = it.following_count,
-            profileImageUri = it.profileImageUri,
-            joinDate = it.joinDate
+            profileImageUri = it.profileImageUri
+//            joinDate = it.joinDate
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.ambient.stories.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.ambient.stories.data.entities.UserData
 
@@ -13,12 +14,13 @@ interface UserDao {
     fun updateUser(user: UserData)
 
     @Query ("SELECT * from user_table WHERE user_id = :key")
-    fun getUser(key: Long) : UserData?
+    fun getUser(key: Long) : UserData
 
 //    @Delete
 //    fun deleteUser(key: Long)
 
     @Query("DELETE FROM user_table")
     fun removeAllUsers()
+
 
 }
