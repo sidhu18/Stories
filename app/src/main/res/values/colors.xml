@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Black Text -->
+    <color name="colorTextBlackPrimary">#D1000000</color>
+    <color name="colorTextBlackSecondary">#8A000000</color>
+    <color name="colorTextBlackDisabled">#61000000</color>
+    <color name="colorTextBlackSeparator">#1F000000</color>
+
+    <!--White Text -->
+    <color name="colorTextWhitePrimary">#ffffff</color>
+    <color name="colorTextWhiteSecondary">#B2ffffff</color>
+    <color name="colorTextWhiteDisabled">#7fffffff</color>
+    <color name="colorTextWhiteSeparator">#1fffffff</color>
+</resources>
