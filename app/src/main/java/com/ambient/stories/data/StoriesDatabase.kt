@@ -5,13 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.ambient.stories.data.dao.PostDao
 import com.ambient.stories.data.dao.UserDao
+import com.ambient.stories.data.entities.PostData
 import com.ambient.stories.data.entities.UserData
 
-@Database(entities = [UserData::class], version = 2, exportSchema = false)
+@Database(entities = [UserData::class,PostData::class], version = 3, exportSchema = false)
 abstract class StoriesDatabase : RoomDatabase() {
 
     abstract val userDao: UserDao
+    abstract val postDao : PostDao
 
     companion object {
 
@@ -29,20 +32,7 @@ abstract class StoriesDatabase : RoomDatabase() {
                         "stories_app_database"
                     )
                         .fallbackToDestructiveMigration()
-                        .addCallback(object : RoomDatabase.Callback(){
-                            override fun onCreate(db: SupportSQLiteDatabase) {
-                                super.onCreate(db)
-                                instance?.userDao?.insertUser( UserData(
-                                    userId = 1,
-                                    userName = "Ash",
-                                    userBio = "Pokemon Trainer",
-                                    postCount = 3,
-                                    following_count = 234,
-                                    followersCount = 1245,
-                                    profileImageUri = "https://i2.wp.com/nintendosoup.com/wp-content/uploads/2020/02/ash-pikachu-feb132020.jpg"
-                                ))
-                            }
-                        })
+                        .addCallback(callback)
                         .build()
                     INSTANCE = instance
                 }

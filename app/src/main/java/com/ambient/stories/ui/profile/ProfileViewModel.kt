@@ -13,7 +13,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    lateinit var userData : UserData
+    var user = MutableLiveData<UserData?>()
 
     init {
         val userDao = StoriesDatabase.getInstance(application).userDao
@@ -26,18 +26,16 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
         userRepository.insertUser(user)
     }
 
-    fun getUser(key : Long) {
+    fun getUser(key : Long){
         uiScope.launch {
-            userData = getUserFromDb(key)
+            user.value = getUserFromDb(key)
         }
     }
 
-    private suspend fun getUserFromDb(key: Long) :UserData {
-        return withContext(Dispatchers.IO) {
-            val user = userRepository.getUser(key)
-            user
-        }
+    suspend fun getUserFromDb(key: Long) : UserData? {
+        return withContext(Dispatchers.IO) { userRepository.getUser(key)}
     }
+
 
 
     override fun onCleared() {
