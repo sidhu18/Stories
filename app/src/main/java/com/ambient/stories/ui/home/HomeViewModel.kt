@@ -1,10 +1,7 @@
 package com.ambient.stories.ui.home
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.ambient.stories.data.StoriesDatabase
 import com.ambient.stories.data.entities.PostData
 import com.ambient.stories.data.repository.PostRepository
@@ -19,21 +16,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 //    var allPosts : LiveData<List<PostData>>
 //        get() = _allPosts
 
-    val allPost: LiveData<List<PostData>>
 
     private val _allPosts = MutableLiveData<List<PostData>>()
+
+    val allPost: LiveData<List<PostData>> = _allPosts
 
     init {
         val postDao = StoriesDatabase.getInstance(application).postDao
         postRepository = PostRepository(postDao)
 
-        allPost = _allPosts
         getAllPost()
 
     }
 
     private fun getAllPost() {
-        runBlocking {_allPosts.value = postRepository.getAllPostsT().value }
+        uiScope.launch {
+            _allPosts.value = getPosts()
+        }
+    }
+
+    private suspend fun getPosts(): List<PostData>? {
+        return withContext(Dispatchers.IO){ postRepository.getAllPostsT() }
     }
 
     override fun onCleared() {

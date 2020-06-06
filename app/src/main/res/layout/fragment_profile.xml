@@ -14,20 +14,90 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.profile.ProfileFragment" >
+        tools:context=".ui.profile.ProfileFragment">
 
         <TextView
-            android:id="@+id/text_notifications"
-            android:layout_width="match_parent"
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/spacing_xlarge"
             android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="@style/TextAppearance.Large"
+            android:textColor="@color/colorTextBlackPrimary"
+            android:textStyle="bold"
+            android:text= "@{viewmodel.user.userName}"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            tools:text="Ash Ketchum" />
+
+        <TextView
+            android:id="@+id/userProfession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@{viewmodel.user.userBio}"
+            android:textAppearance="@style/TextAppearance.Medium"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            tools:text="Pokemon Trainer" />
+
+        <ImageView
+            android:id="@+id/userProfileImage"
+            android:layout_width="@dimen/dimen_profile"
+            android:layout_height="@dimen/dimen_profile"
+            android:layout_marginTop="@dimen/spacing_normal"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ash_profile" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/spacing_normal" />
+
+        <TextView
+            android:id="@+id/userPostCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="3 Posts"
+            android:text="@{@string/post_count(viewmodel.user.postCount)}"
+            style="@style/textStyleNormalBold"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/userProfession" />
+
+        <TextView
+            android:id="@+id/userFollowersCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="200 Followers"
+            android:text="@{@string/follower_count(viewmodel.user.followersCount)}"
+            android:layout_marginStart="@dimen/spacing_small"
+            style="@style/textStyleNormalBold"
+            app:layout_constraintBottom_toBottomOf="@+id/userPostCount"
+            app:layout_constraintStart_toEndOf="@+id/userPostCount"
+            app:layout_constraintTop_toTopOf="@+id/userPostCount" />
+
+        <TextView
+            android:id="@+id/userFollowingCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="343 Following"
+            android:text="@{@string/following_count(viewmodel.user.following_count)}"
+            android:layout_marginStart="@dimen/spacing_small"
+            style="@style/textStyleNormalBold"
+            app:layout_constraintBottom_toBottomOf="@+id/userFollowersCount"
+            app:layout_constraintStart_toEndOf="@+id/userFollowersCount"
+            app:layout_constraintTop_toTopOf="@+id/userFollowersCount" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

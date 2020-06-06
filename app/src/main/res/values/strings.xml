@@ -8,4 +8,8 @@
     <string name="add_a_heading">Add a heading</string>
     <string name="post">Post</string>
     <string name="write_something_here">Write something here</string>
+
+    <string name="post_count">%s Posts</string>
+    <string name="follower_count">%s Followers</string>
+    <string name="following_count">%s Following</string>
 </resources>

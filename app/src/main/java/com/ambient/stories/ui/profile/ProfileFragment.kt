@@ -33,11 +33,6 @@ class ProfileFragment : Fragment() {
 
         binding.viewmodel = profileViewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-        profileViewModel.user.observe(viewLifecycleOwner, Observer {
-            binding.textNotifications.text = it?.userName ?: "fail"
-        })
-
         return binding.root
     }
 }

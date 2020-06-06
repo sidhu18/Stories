@@ -20,5 +20,5 @@ interface PostDao {
     fun getPost(key: Long) : PostData
 
     @Query("SELECT * from post_table ORDER BY post_id DESC")
-    fun getAllPosts() : LiveData<List<PostData>>
+    fun getAllPosts() : List<PostData>
 }
