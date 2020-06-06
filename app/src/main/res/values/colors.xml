@@ -15,4 +15,7 @@
     <color name="colorTextWhiteSecondary">#B2ffffff</color>
     <color name="colorTextWhiteDisabled">#7fffffff</color>
     <color name="colorTextWhiteSeparator">#1fffffff</color>
+
+    <!-- Button color-->
+    <color name="greenButton">#247327</color>
 </resources>

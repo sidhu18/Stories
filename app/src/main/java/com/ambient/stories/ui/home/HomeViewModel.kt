@@ -8,10 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.ambient.stories.data.StoriesDatabase
 import com.ambient.stories.data.entities.PostData
 import com.ambient.stories.data.repository.PostRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,14 +16,24 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    var allPosts : LiveData<List<PostData>>
+//    var allPosts : LiveData<List<PostData>>
+//        get() = _allPosts
+
+    val allPost: LiveData<List<PostData>>
+
+    private val _allPosts = MutableLiveData<List<PostData>>()
 
     init {
         val postDao = StoriesDatabase.getInstance(application).postDao
         postRepository = PostRepository(postDao)
 
-        allPosts = postRepository.allPosts
+        allPost = _allPosts
+        getAllPost()
 
+    }
+
+    private fun getAllPost() {
+        runBlocking {_allPosts.value = postRepository.getAllPostsT().value }
     }
 
     override fun onCleared() {

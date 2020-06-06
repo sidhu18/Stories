@@ -1,13 +1,45 @@
 package com.ambient.stories.ui.post
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.ambient.stories.data.StoriesDatabase
+import com.ambient.stories.data.entities.PostData
+import com.ambient.stories.data.entities.UserData
+import com.ambient.stories.data.repository.PostRepository
+import com.ambient.stories.data.repository.UserRepository
+import kotlinx.coroutines.*
 
-class PostViewModel : ViewModel() {
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+    private val postRepository : PostRepository
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    init {
+        val postDao = StoriesDatabase.getInstance(application).postDao
+        postRepository = PostRepository(postDao)
     }
-    val text: LiveData<String> = _text
+
+    fun addPost(){
+        insertPost(
+            PostData(
+            100,1,"Sample","Test post","",0,"02 June 2020"
+        )
+        )
+    }
+
+    private fun insertPost(postData : PostData){
+        uiScope.launch {
+            insert(postData)
+        }
+    }
+
+    private suspend fun insert(postData: PostData){
+        withContext(Dispatchers.IO) {postRepository.insertPost(postData)}
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
 }

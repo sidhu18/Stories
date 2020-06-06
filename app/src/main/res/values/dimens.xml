@@ -6,4 +6,6 @@
     <dimen name="dimen_profile">100dp</dimen>
     <dimen name="dimen_profile_post">30dp</dimen>
     <dimen name="spacing_large">24dp</dimen>
+    <dimen name="button_corner_radius">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
 </resources>

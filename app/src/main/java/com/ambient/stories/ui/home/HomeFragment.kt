@@ -31,8 +31,8 @@ class HomeFragment : Fragment() {
 
         binding.postRecycler.adapter = adapter
 
-        homeViewModel.allPosts.observe(viewLifecycleOwner, Observer { it ->
-            it.let { adapter.data = it }
+        homeViewModel.allPost.observe(viewLifecycleOwner, Observer { it ->
+            it?.let { adapter.data = it }
         })
 
         return binding.root

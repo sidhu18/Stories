@@ -4,4 +4,8 @@
     <string name="title_post">Post</string>
     <string name="title_profile">Profile</string>
     <string name="user_profile_image">User profile image</string>
+    <string name="heading">How was today</string>
+    <string name="add_a_heading">Add a heading</string>
+    <string name="post">Post</string>
+    <string name="write_something_here">Write something here</string>
 </resources>
