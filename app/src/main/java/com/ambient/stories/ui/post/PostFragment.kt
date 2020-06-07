@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ambient.stories.R
+import com.ambient.stories.data.entities.PostData
 import com.ambient.stories.databinding.FragmentPostBinding
 
 class PostFragment : Fragment() {
@@ -28,8 +29,19 @@ class PostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = postViewModel
 
-        binding.postButton.setOnClickListener{ postViewModel.addPost() }
+        binding.postButton.setOnClickListener{
+            postViewModel.addPost(getPostData())
+            clearTextFields()
+        }
 
         return binding.root
+    }
+    private fun getPostData() : PostData{
+        return PostData(0,1,binding.postHeading.text.toString(),binding.postBody.text.toString(),"",0,"06 June 2020")
+    }
+
+    private fun clearTextFields() {
+        binding.postHeading.text.clear()
+        binding.postBody.text.clear()
     }
 }
