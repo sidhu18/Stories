@@ -10,7 +10,7 @@ import com.ambient.stories.data.dao.UserDao
 import com.ambient.stories.data.entities.PostData
 import com.ambient.stories.data.entities.UserData
 
-@Database(entities = [UserData::class,PostData::class], version = 3, exportSchema = false)
+@Database(entities = [UserData::class,PostData::class], version = 4, exportSchema = false)
 abstract class StoriesDatabase : RoomDatabase() {
 
     abstract val userDao: UserDao
@@ -32,7 +32,7 @@ abstract class StoriesDatabase : RoomDatabase() {
                         "stories_app_database"
                     )
                         .fallbackToDestructiveMigration()
-                        .addCallback(callback)
+//                        .addCallback(callback)
                         .build()
                     INSTANCE = instance
                 }

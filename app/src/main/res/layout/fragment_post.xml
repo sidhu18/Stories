@@ -49,7 +49,7 @@
             android:background="@null"
             android:paddingTop="@dimen/spacing_small"
             android:paddingBottom="@dimen/spacing_small"
-            style="@style/textStyleNormalBold"
+            style="@style/textStylePostHeadline"
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textView" />

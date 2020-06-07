@@ -12,4 +12,7 @@
     <string name="post_count">%s Posts</string>
     <string name="follower_count">%s Followers</string>
     <string name="following_count">%s Following</string>
+    <string name="log_in">Log in</string>
+    <string name="welcome_tap_login_to_continue">Welcome, Tap login to continue</string>
+    <string name="app_walkthrough_text">The Stories app is a fictional journal app, where one could become superheros and write stories and experiences they had ( fictional obviously). The app aims to improve users creative thinking and let out their imaginations.</string>
 </resources>

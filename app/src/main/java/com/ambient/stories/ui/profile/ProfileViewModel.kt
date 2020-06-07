@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.ambient.stories.data.StoriesDatabase
 import com.ambient.stories.data.entities.UserData
 import com.ambient.stories.data.repository.UserRepository
+import com.ambient.stories.helpers.AppPreferences
 import kotlinx.coroutines.*
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,7 +20,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     init {
         val userDao = StoriesDatabase.getInstance(application).userDao
         userRepository = UserRepository(userDao)
-        getUser(1)
+        getUser(AppPreferences.loggedInUserId)
     }
 
 

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.ambient.stories.data.StoriesDatabase
 import com.ambient.stories.data.entities.PostData
+import com.ambient.stories.data.entities.PostWithUserData
 import com.ambient.stories.data.repository.PostRepository
 import kotlinx.coroutines.*
 
@@ -17,9 +18,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 //        get() = _allPosts
 
 
-    private val _allPosts = MutableLiveData<List<PostData>>()
+    private val _allPosts = MutableLiveData<List<PostWithUserData>>()
 
-    val allPost: LiveData<List<PostData>> = _allPosts
+    val allPost: LiveData<List<PostWithUserData>> = _allPosts
 
     init {
         val postDao = StoriesDatabase.getInstance(application).postDao
@@ -35,8 +36,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private suspend fun getPosts(): List<PostData>? {
-        return withContext(Dispatchers.IO){ postRepository.getAllPostsT() }
+    private suspend fun getPosts(): List<PostWithUserData>? {
+        return withContext(Dispatchers.IO){ postRepository.getAllPostsWithUserData() }
     }
 
     override fun onCleared() {

@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.ambient.stories.R
 import com.ambient.stories.databinding.FragmentProfileBinding
 import com.ambient.stories.databinding.FragmentProfileBindingImpl
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class ProfileFragment : Fragment() {
 
@@ -33,6 +35,13 @@ class ProfileFragment : Fragment() {
 
         binding.viewmodel = profileViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        Glide.with(binding.root)
+            .load(profileViewModel.user.value?.profileImageUri)
+            .apply(RequestOptions().circleCrop())
+            .placeholder(R.drawable.ic_placeholder)
+            .into(binding.userProfileImage)
+
         return binding.root
     }
 }

@@ -4,23 +4,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ambient.stories.R
 import com.ambient.stories.data.entities.PostData
+import com.ambient.stories.data.entities.PostWithUserData
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import de.hdodenhof.circleimageview.CircleImageView
 
-class PostAdapter : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
-
-    var data = listOf<PostData>()
+class PostAdapter : ListAdapter<PostWithUserData, PostAdapter.ViewHolder>(PostDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item : PostData = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 
@@ -35,10 +38,18 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
             }
         }
 
-        fun bind(item: PostData) {
+        fun bind(item: PostWithUserData) {
             postUserName.text = item.userId.toString()
             postHeading.text = item.postHeading
             postBody.text = item.postBody
+            postUserName.text = item.userName
+            postDate.text = item.postDate
+
+            Glide.with(itemView)
+                .load(item.profileImageUri)
+                .apply(RequestOptions().circleCrop())
+                .placeholder(R.drawable.ic_placeholder)
+                .into(postUserImage)
         }
 
         val postUserName : TextView = itemView.findViewById(R.id.postUserName)
@@ -48,5 +59,15 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
         val postBody : TextView = itemView.findViewById(R.id.postBody)
     }
 
+    class PostDiffCallBack : DiffUtil.ItemCallback<PostWithUserData>(){
+        override fun areItemsTheSame(oldItem: PostWithUserData, newItem: PostWithUserData): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: PostWithUserData, newItem: PostWithUserData): Boolean {
+            return oldItem == newItem
+        }
+
+    }
 
 }

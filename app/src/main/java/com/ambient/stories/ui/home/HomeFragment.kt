@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ambient.stories.R
 import com.ambient.stories.adapters.PostAdapter
 import com.ambient.stories.databinding.FragmentHomeBinding
+import com.ambient.stories.helpers.AppPreferences
 
 class HomeFragment : Fragment() {
 
@@ -29,13 +31,15 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = homeViewModel
 
-        binding.postRecycler.adapter = adapter
+        if(AppPreferences.loggedInUserId == -1L){
+            findNavController().navigate(R.id.action_navigation_home_to_loginFragment)
+        }else {
+            binding.postRecycler.adapter = adapter
 
-        binding.sample.text = homeViewModel.allPost.value?.get(0)?.postHeading ?: "fail"
-
-        homeViewModel.allPost.observe(viewLifecycleOwner, Observer { it ->
-            it.let { adapter.data = it }
-        })
+            homeViewModel.allPost.observe(viewLifecycleOwner, Observer { it ->
+                it?.let { adapter.submitList(it) }
+            })
+        }
 
         return binding.root
     }

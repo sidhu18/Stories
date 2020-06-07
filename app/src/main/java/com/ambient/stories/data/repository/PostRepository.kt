@@ -3,12 +3,13 @@ package com.ambient.stories.data.repository
 import androidx.lifecycle.LiveData
 import com.ambient.stories.data.dao.PostDao
 import com.ambient.stories.data.entities.PostData
+import com.ambient.stories.data.entities.PostWithUserData
 import com.ambient.stories.data.entities.UserData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PostRepository(private var postDao: PostDao, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO){
+class PostRepository(private var postDao: PostDao){
 
 //    abstract fun getAllPost()  : LiveData<List<PostData>> = postDao.getAllPosts()
 
@@ -26,5 +27,9 @@ class PostRepository(private var postDao: PostDao, private val ioDispatcher: Cor
 
     fun getAllPostsT() : List<PostData> {
         return postDao.getAllPosts()
+    }
+
+    suspend fun getAllPostsWithUserData() : List<PostWithUserData>{
+        return postDao.getAllPostsWithUserInfo()
     }
 }

@@ -21,9 +21,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addPost(){
         insertPost(
-            PostData(
-            101,1,"Sample2","Test post2","",0,"06 June 2020"
-        )
+            PostData(0,1,"Sample2","Test post2","",0,"06 June 2020")
         )
     }
 
